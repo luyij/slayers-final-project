@@ -9,7 +9,8 @@
 
 library(shiny)
 library(markdown)
-library(shinythemes)
+source("test.R")
+
 
 # Define UI for application that draws a histogram
 shinyUI(fluidPage(
@@ -22,31 +23,34 @@ shinyUI(fluidPage(
     tabPanel("Home",
         p("About the project page")
     ),
-    tabPanel("Filter",
+    tabPanel("Hunt a Movie",
     # Sidebar with a slider input for number of bins 
       sidebarLayout(
         sidebarPanel(
-          #Filters the movies by genre
-          checkboxGroupInput("Genre", label = "Genre", 
-                         choices = list("Comedy" = 1, "Romance" = 2, "Drama" = 3)),
-          #Filters the movies by year
+          # Filter movies by genre
+          selectInput("genre", "Choose a genre:",
+                      choices = sort(genres)),
+          # Filter movies by language
+          uiOutput("language"),
+          # Filter movies by year
           sliderInput("yearRange", label = "Year Range", min = 1916, 
-                         max = 2017, value = c(1916, 2017), sep = ""),
-          #Filters the movies by language options available
-          checkboxGroupInput("Language", label = "Language", 
-                         choices = list("English" = 1, "Spanish" = 2, "French" = 3))
+                         max = 2017, value = c(1916, 2016), sep = ""),
+          checkboxGroupInput("type", label = "Content Rating", 
+                             choices = sort(types)),
+          checkboxGroupInput("color", label = "Color", 
+                             choices = c("Color","Black & White"))
         ),
     
     # Show a plot of the generated distribution
       mainPanel(
         tabsetPanel(type = "tabs",
-                    tabPanel("Table", tableOutput("table")),
-                    tabPanel("Plot", plotOutput("plot"))
+                    tabPanel("Movies", tableOutput("table")),
+                    tabPanel("Visualize", plotOutput("plot"))
         )
       )
       )
     ),
-    tabPanel("Movie by Mood",
+    tabPanel("Hunt for Fun",
              p("Random generator by mood")
     ),
     tabPanel("Help",
