@@ -9,12 +9,14 @@
 
 library(shiny)
 library(markdown)
+library(shinythemes)
 
 # Define UI for application that draws a histogram
 shinyUI(fluidPage(
+  theme = shinytheme("slate"),
   
   # Application title
-  titlePanel(img(src="exampleLogo.png", width = "50px")),
+  titlePanel(img(src="exampleLogo.png", width = 200)),
   
   navbarPage("MovieHunter",
     tabPanel("Home",
@@ -43,6 +45,9 @@ shinyUI(fluidPage(
         )
       )
       )
+    ),
+    tabPanel("Movie by Mood",
+             p("Random generator by mood")
     ),
     tabPanel("Help",
            p("About how to use the App")
