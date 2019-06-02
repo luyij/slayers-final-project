@@ -12,7 +12,7 @@ full_data <- full_data %>%
   rename(title = movie_title, year = title_year, director = director_name, 
          link = movie_imdb_link, keywords = plot_keywords) %>%
   arrange(year)
-  #mutate(keywords = paste(str_split(keywords, "[|]"), collapse = ","))
+
 
 # content rating system has been changed in years
 full_data$content_rating <- full_data$content_rating %>%
@@ -25,8 +25,6 @@ full_data$content_rating <- full_data$content_rating %>%
 full_data$language <- ifelse(full_data$language == "", str_replace_all(full_data$language, "|", "Other"), full_data$language)
 full_data$content_rating <- ifelse(full_data$content_rating == "", str_replace_all(full_data$content_rating, "|", "Unrated"), full_data$content_rating)
 
-
-
 # edit format of 'color' column
 full_data$color <- full_data$color %>%
   str_replace_all("and", "&") %>%
@@ -38,6 +36,16 @@ genres <- unique(unlist(str_split(full_data$genres, "[|]")))
 # determine how many different types of content rating
 types <- unique(full_data$content_rating)
 
+# format keywords
+format <- function(x){
+  for(i in 1:length(full_data$keywords))
+  x[i] <- paste(unlist(str_split(full_data$keywords[i], "[|]")), collapse = ", ")
+  x
+}
+
+full_data$keywords <- format(full_data$keywords)
+
 #data <- full_data %>%
-    #filter(grepl("Action", genres), language == "English") %>%
-    #select(title, year, director, imdb_score, keywords)
+#filter(grepl("Action", genres), language == "English") %>%
+#select(title, year, director, imdb_score, keywords)
+

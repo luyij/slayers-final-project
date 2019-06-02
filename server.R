@@ -22,7 +22,8 @@ shinyServer(function(input, output) {
   data <- reactive({
     full_data %>%
       filter(year>= min(input$yearRange) & year<= max(input$yearRange)) %>%
-      select(title, year, director, imdb_score, keywords)
+      select(title, year, director, imdb_score, keywords) %>%
+      rename_all(toupper)
   })
   
   output$table <- renderTable({
