@@ -13,6 +13,7 @@ library(shinythemes)
 
 # Define UI for application that draws a histogram
 shinyUI(fluidPage(
+  theme = shinytheme("slate"),
   
   theme = shinytheme("slate"), 
   
@@ -46,6 +47,9 @@ shinyUI(fluidPage(
         )
       )
       )
+    ),
+    tabPanel("Movie by Mood",
+             p("Random generator by mood")
     ),
     tabPanel("Help",
            p("About how to use the App")
