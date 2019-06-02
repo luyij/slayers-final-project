@@ -14,10 +14,9 @@ library(markdown)
 shinyUI(fluidPage(
   
   # Application title
-  titlePanel("MovieHunter"),
+  titlePanel(img(src="exampleLogo.png", width = "50px")),
   
-  
-  navbarPage(img(src="exampleLogo.png", width = "45px"),
+  navbarPage("MovieHunter",
     tabPanel("Home",
         p("About the project page")
     ),
@@ -38,7 +37,10 @@ shinyUI(fluidPage(
     
     # Show a plot of the generated distribution
       mainPanel(
-       # plotOutput("distPlot")
+        tabsetPanel(type = "tabs",
+                    tabPanel("Table", tableOutput("table")),
+                    tabPanel("Plot", plotOutput("plot"))
+        )
       )
       )
     ),
