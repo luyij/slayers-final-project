@@ -15,8 +15,6 @@ library(shinythemes)
 shinyUI(fluidPage(
   theme = shinytheme("slate"),
   
-  theme = shinytheme("slate"), 
-  
   # Application title
   titlePanel(img(src="exampleLogo.png", width = 200)),
   
