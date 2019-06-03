@@ -63,9 +63,25 @@ shinyServer(function(input, output) {
       ggplotly(p) 
   })
   
-  output$random <- renderTable({
+  output$random <- renderText({
+    input$button
     if(input$mood == "HAPPY"){
+      movie <- full_data %>% 
+        filter(id == sample(1:nrow(full_data),1))
+    }else if(input$mood == "SAD"){
+      movie <- comedy %>% 
+        filter(id == sample(1:nrow(comedy),1))
+    }else if(input$mood == "LOVED"){
+      movie <- romance %>% 
+        filter(id == sample(1:nrow(romance),1))
+    }else if(input$mood == "FANTASY"){
+      movie <- fantasy %>% 
+        filter(id == sample(1:nrow(fantasy),1))
+    }else if(input$mood == "TRICKY"){
+      movie <- horror %>% 
+        filter(id == sample(1:nrow(horror),1))
     }
+    paste(movie$title[1])
   })
   
 })

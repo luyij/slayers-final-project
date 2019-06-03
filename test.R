@@ -45,3 +45,22 @@ format <- function(x){
 
 full_data$keywords <- format(full_data$keywords)
 
+full_data$id <- seq.int(nrow(full_data))
+
+comedy <- filter(full_data, grepl("Comedy", genres)) 
+
+comedy$id <- seq.int(nrow(comedy))
+
+romance <- filter(full_data, grepl("Romance", genres)) 
+
+romance$id <- seq.int(nrow(romance))
+
+fantasy <- filter(full_data, grepl("Sci-Fi|Fantasy", genres)) 
+
+fantasy$id <- seq.int(nrow(fantasy))
+
+horror <- filter(full_data, grepl("Horror", genres)) 
+
+horror$id <- seq.int(nrow(horror))
+
+

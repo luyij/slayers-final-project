@@ -84,7 +84,9 @@ shinyUI(fluidPage(
                actionButton("button", "Update")
              ),
              mainPanel(
-               h4("You may want to watch ...")
+               h4("You may want to watch ..."),
+               tags$style(type='text/css', '#random {background-color: rgba(180, 180, 180, 0.3); color: white; font-size: 18px}'),
+               h4(verbatimTextOutput("random"))
                )
     
     ),
