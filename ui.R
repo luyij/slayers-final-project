@@ -41,7 +41,7 @@ shinyUI(fluidPage(
                              choices = sort(types)),
           checkboxGroupInput("color", label = "Color", 
                              choices = c("Color","Black & White")),
-          helpText('Note: content rating starting with "TV-" is based on "television content rating system".')
+          helpText('Note: content rating starting with "TV-" is based on television content rating system.')
         ),
     
     # Show a plot of the generated distribution
