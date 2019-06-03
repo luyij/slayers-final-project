@@ -8,6 +8,7 @@
 #
 
 library(shiny)
+library(plotly)
 library(markdown)
 library(shinythemes)
 source("test.R")
@@ -48,7 +49,7 @@ shinyUI(fluidPage(
       mainPanel(
         tabsetPanel(type = "tabs",
                     tabPanel("Movies", tableOutput("table"), textOutput("text")),
-                    tabPanel("Visualize", plotOutput("plot"))
+                    tabPanel("Visualize", plotlyOutput("plot"))
         )
       )
       )

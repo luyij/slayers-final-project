@@ -1,13 +1,6 @@
-#
-# This is the server logic of a Shiny web application. You can run the 
-# application by clicking 'Run App' above.
-#
-# Find out more about building applications with Shiny here:
-# 
-#    http://shiny.rstudio.com/
-#
-
+library(ggplot2)
 library(shiny)
+library(plotly)
 source("test.R")
 
 
@@ -68,9 +61,14 @@ shinyServer(function(input, output) {
     tagList("URL link:", url)
   })
   
-  output$plot <- renderPlot({
+  output$plot <- renderPlotly({
+      p <- ggplot() +
+        geom_point(data = x(), aes(x=year, y=imdb_score, colour = imdb_score, key = title, stat = "identity")) +
+        theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+              panel.background = element_blank(), axis.line = element_line(colour = "black")) +
+        labs(title = "IMDB Score", x = "Year", y ="IMDB Scores")
+      ggplotly(p) 
   })
-  
   
   
 })
