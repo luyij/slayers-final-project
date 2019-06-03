@@ -33,13 +33,15 @@ shinyUI(fluidPage(
                       choices = sort(genres)),
           # Filter movies by language
           uiOutput("language"),
+          uiOutput("tab"),
           # Filter movies by year
           sliderInput("yearRange", label = "Year Range", min = 1916, 
                          max = 2017, value = c(1916, 2016), sep = ""),
           checkboxGroupInput("type", label = "Content Rating", 
                              choices = sort(types)),
           checkboxGroupInput("color", label = "Color", 
-                             choices = c("Color","Black & White"))
+                             choices = c("Color","Black & White")),
+          helpText('Note: content rating starting with "TV-" is based on "television content rating system".')
         ),
     
     # Show a plot of the generated distribution

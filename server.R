@@ -19,18 +19,45 @@ shinyServer(function(input, output) {
     selectInput("language", "Choose a language:", choices = sort(data[, "language"]))
   }) 
   
+  
   data <- reactive({
     full_data %>%
       filter(year>= min(input$yearRange) & year<= max(input$yearRange)) %>%
-      select(title, year, director, imdb_score, keywords) %>%
-      rename_all(toupper)
+      filter(language %in% input$language)
   })
   
   output$table <- renderTable({
-    data()
+    if(is.null(input$color) & is.null(input$type)){
+      data() %>% select(title, year, director, imdb_score, keywords) %>%
+        rename_all(toupper)
+    } else if(!is.null(input$type) & is.null(input$color)){
+        data() %>% filter(content_rating %in% input$type) %>%
+        select(title, year, director, imdb_score, keywords) %>%
+        rename_all(toupper)
+    } else if(!is.null(input$color) & is.null(input$type)){
+        data() %>% filter(color %in% input$color) %>%
+        select(title, year, director, imdb_score, keywords) %>%
+        rename_all(toupper)
+    } else if(!is.null(input$type) & !is.null(input$color)){
+        data() %>% filter(content_rating %in% input$type) %>%
+        filter(color %in% input$color) %>%
+        select(title, year, director, imdb_score, keywords) %>%
+        rename_all(toupper)
+      }
+  })
+  
+  output$text <- renderText({
+    paste("Sorry! There's no movie in this category.")
+  })
+  
+  url <- a("Google Homepage", href="https://www.google.com/")
+  output$tab <- renderUI({
+    tagList("URL link:", url)
   })
   
   output$plot <- renderPlot({
   })
+  
+  
   
 })
