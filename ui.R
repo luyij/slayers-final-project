@@ -15,7 +15,7 @@ library(shinyWidgets)
 source("test.R")
 
 df <- data.frame(
-  val = c("HAPPY","UPSET", "LOVED", "FANTASY", "PLAYFUL")
+  val = c("HAPPY","UPSET", "LOVED", "IMAGINATIVE", "PLAYFUL")
 )
 
 df$img = c(
@@ -26,19 +26,22 @@ df$img = c(
   sprintf("<img src='ghost.png' width=25px><div class='jhr'>%s</div></img>", df$val[5])
 )
 
-
-
 # Define UI for application that draws a histogram
 shinyUI(fluidPage(
   theme = shinytheme("slate"),
   
   # Application title
-  titlePanel(img(src="exampleLogo.png", width = 200)),
+  titlePanel(title = div(img(src="MHLogo.png", width = 200))),
   
   navbarPage("MovieHunter",
     tabPanel("Home",
-        p("About the project page")
+        h2("About"),
+        p("MovieHunter was made for everyone to find a movie to watch. The 
+          creators want to make finding and choosing a movie to watch be an 
+          task."),
+        HTML('<iframe width="560" height="315" src="https://www.youtube.com/embed/2L3Gvo40DzQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>')
     ),
+
     tabPanel("Hunt a Movie",
     # Sidebar with a slider input for number of bins 
       sidebarLayout(
@@ -68,6 +71,7 @@ shinyUI(fluidPage(
       )
       )
     ),
+
     tabPanel("Hunt for Fun",
              sidebarPanel(
                tags$head(tags$style("
@@ -88,10 +92,23 @@ shinyUI(fluidPage(
                tags$style(type='text/css', '#random {background-color: rgba(180, 180, 180, 0.3); color: white; font-size: 18px}'),
                h4(verbatimTextOutput("random"))
                )
-    
     ),
     tabPanel("Help",
-           p("About how to use the App")
+           h2("How to use Movie Hunter"),
+           h3("Find a Movie"),
+           p("Use the filter to find the movies that you are interested in watching."), 
+           tags$li("You can select the genres of the movies that you want to watch such as 
+             comedy or action. The Movie Hunter app allows you to pick multiple genres
+             so that you can be specific"),
+           tags$li("After you pick your genre(s), you can select 
+             the year the movie was produced. To do this, use the slider to pick the time 
+             frame and if you want to find the movies of a specific year, you can drag 
+             the sliders on top of each other"),
+           tags$li("Choose the language that you want to watch the movie"),
+           h3("Movie by Mood"),
+           p("The Movie by Mood page is a great choice if you want to be adventurous and 
+             pick a movie by chance. Click on the emoji that you are feeling and let us 
+             choose a movie for you!")
     )
   )
 ))

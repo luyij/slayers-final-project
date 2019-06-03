@@ -51,7 +51,7 @@ comedy <- filter(full_data, grepl("Comedy", genres))
 
 comedy$id <- seq.int(nrow(comedy))
 
-romance <- filter(full_data, grepl("Romance", genres)) 
+romance <- filter(full_data, grepl("Romance|Family", genres)) 
 
 romance$id <- seq.int(nrow(romance))
 

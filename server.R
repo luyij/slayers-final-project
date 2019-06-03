@@ -74,7 +74,7 @@ shinyServer(function(input, output) {
     }else if(input$mood == "LOVED"){
       movie <- romance %>% 
         filter(id == sample(1:nrow(romance),1))
-    }else if(input$mood == "FANTASY"){
+    }else if(input$mood == "IMAGINATIVE"){
       movie <- fantasy %>% 
         filter(id == sample(1:nrow(fantasy),1))
     }else if(input$mood == "PLAYFUL"){
