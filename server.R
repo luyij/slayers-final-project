@@ -22,6 +22,7 @@ shinyServer(function(input, output) {
   
   data <- reactive({
     full_data %>%
+      filter(grepl(input$genre, genres)) %>%
       filter(year>= min(input$yearRange) & year<= max(input$yearRange)) %>%
       filter(language %in% input$language)
   })
