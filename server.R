@@ -33,21 +33,14 @@ shinyServer(function(input, output) {
       filter(year>= min(input$yearRange) & year<= max(input$yearRange)) %>%
       filter(language %in% input$language)
     if(is.null(input$color) & is.null(input$type)){
-      data %>% select(title, year, director, imdb_score, keywords) %>%
-        rename_all(toupper)
+      data
     } else if(!is.null(input$type) & is.null(input$color)){
-        data %>% filter(content_rating %in% input$type) %>%
-        select(title, year, director, imdb_score, keywords) %>%
-        rename_all(toupper)
+        data %>% filter(content_rating %in% input$type)
     } else if(!is.null(input$color) & is.null(input$type)){
-        data %>% filter(color %in% input$color) %>%
-        select(title, year, director, imdb_score, keywords) %>%
-        rename_all(toupper)
+        data %>% filter(color %in% input$color)
     } else if(!is.null(input$type) & !is.null(input$color)){
         data %>% filter(content_rating %in% input$type) %>%
-        filter(color %in% input$color) %>%
-        select(title, year, director, imdb_score, keywords) %>%
-        rename_all(toupper)
+        filter(color %in% input$color) 
       }
   })
   
@@ -55,7 +48,9 @@ shinyServer(function(input, output) {
   output$table <- renderTable({
     if(nrow(x())==0){}
     else{
-      x()
+      x() %>% 
+        select(title, year, director, imdb_score, keywords) %>%
+        rename_all(toupper)
     }
   })
   
