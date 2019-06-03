@@ -8,7 +8,23 @@
 #
 
 library(shiny)
+library(plotly)
+library(markdown)
 library(shinythemes)
+library(shinyWidgets)
+source("test.R")
+
+df <- data.frame(
+  val = c("HAPPY","SAD", "LOVED", "FANTASY", "TRICKY")
+)
+
+df$img = c(
+  sprintf("<img src='happy.png' width=25px><div class='jhr'>%s</div></img>", df$val[1]),
+  sprintf("<img src='sad.png' width=25px><div class='jhr'>%s</div></img>", df$val[2]),
+  sprintf("<img src='kiss.png' width=25px><div class='jhr'>%s</div></img>", df$val[3]),
+  sprintf("<img src='robot.png' width=25px><div class='jhr'>%s</div></img>", df$val[4]),
+  sprintf("<img src='ghost.png' width=25px><div class='jhr'>%s</div></img>", df$val[5])
+)
 
 # Define UI for application that draws a histogram
 shinyUI(fluidPage(
@@ -20,41 +36,62 @@ shinyUI(fluidPage(
   navbarPage("MovieHunter",
     tabPanel("Home",
         h2("About"),
-        p("Movie Hunter was made for everyone to find a movie to watch. The 
+        p("MovieHunter was made for everyone to find a movie to watch. The 
           creators want to make finding and choosing a movie to watch be an 
           task."),
         HTML('<iframe width="560" height="315" src="https://www.youtube.com/embed/2L3Gvo40DzQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>')
     ),
-    tabPanel("Find a Movie",
+
+    tabPanel("Hunt a Movie",
     # Sidebar with a slider input for number of bins 
       sidebarLayout(
         sidebarPanel(
-          #Filters the movies by genre
-          checkboxGroupInput("Genre", label = "Genre", inline = TRUE, 
-                         choices = list("Comedy" = 1, "Romance" = 2, "Drama" = 3,
-                                         "Animation" = 4, "Horror" = 5, "Action" = 6)),
-          br(),
-          #Filters the movies by year
+          # Filter movies by genre
+          selectInput("genre", "Choose a Genre:",
+                      choices = sort(genres)),
+          # Filter movies by language
+          uiOutput("language"),
+          uiOutput("tab"),
+          # Filter movies by year
           sliderInput("yearRange", label = "Year Range", min = 1916, 
-                         max = 2017, value = c(1916, 2017), sep = ""),
-          br(),
-          #Filters the movies by language options available
-          checkboxGroupInput("Language", label = "Language", 
-                         choices = list("English" = 1, "Spanish" = 2, "French" = 3))
+                         max = 2017, value = c(1916, 2016), sep = ""),
+          checkboxGroupInput("type", label = "Content Rating", 
+                             choices = sort(types)),
+          checkboxGroupInput("color", label = "Color", 
+                             choices = c("Color","Black & White")),
+          helpText('Note: content rating starting with "TV-" is based on television content rating system.')
         ),
     
     # Show a plot of the generated distribution
       mainPanel(
         tabsetPanel(type = "tabs",
-                    tabPanel("Table", tableOutput("table")),
-                    tabPanel("Plot", plotOutput("plot"))
+                    tabPanel("Movies", tableOutput("table"), textOutput("text")),
+                    tabPanel("Visualize", plotlyOutput("plot"))
         )
       )
       )
     ),
-    tabPanel("Movie by Mood",
-             h1("How are you feeling today?")
-             #textOutput("random")
+
+    tabPanel("Hunt for Fun",
+             sidebarPanel(
+               tags$head(tags$style("
+                       .jhr{
+                       display: inline;
+                       vertical-align: middle;
+                       padding-left: 10px;
+                       }")),
+               pickerInput("mood",
+                           label = h4("How do you feel today?"),
+                           choices = df$val,
+                           choicesOpt = list(content = df$img)
+                           ),
+               actionButton("button", "Update")
+             ),
+             mainPanel(
+               h4("You may want to watch ..."),
+               tags$style(type='text/css', '#random {background-color: rgba(180, 180, 180, 0.3); color: white; font-size: 18px}'),
+               h4(verbatimTextOutput("random"))
+               )
     ),
     tabPanel("Help",
            h2("How to use Movie Hunter"),
