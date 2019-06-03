@@ -58,7 +58,7 @@ shinyServer(function(input, output) {
     if(nrow(x())==0){}
     else{
       p <- ggplot() +
-        geom_point(data = x(), aes(x=year, y=imdb_score, key = title)) +
+        geom_point(data = x(), aes(x=year, y=imdb_score, color = ~content_rating)) +
         theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
               panel.background = element_blank(), axis.line = element_line(colour = "black")) +
         labs(title = "IMDB Score", x = "Year", y ="IMDB Scores")
