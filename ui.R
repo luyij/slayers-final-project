@@ -79,7 +79,9 @@ shinyUI(fluidPage(
                pickerInput("mood",
                            label = h4("How do you feel today?"),
                            choices = df$val,
-                           choicesOpt = list(content = df$img))
+                           choicesOpt = list(content = df$img)
+                           ),
+               actionButton("button", "Update")
              ),
              mainPanel(
                h4("You may want to watch ...")
