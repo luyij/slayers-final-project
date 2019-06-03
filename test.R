@@ -11,7 +11,7 @@ full_data <- full_data %>%
   distinct(.keep_all = FALSE) %>%
   rename(title = movie_title, year = title_year, director = director_name, 
          link = movie_imdb_link, keywords = plot_keywords) %>%
-  arrange(year)
+  arrange(desc(year))
 
 
 # content rating system has been changed in years
