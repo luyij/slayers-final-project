@@ -50,7 +50,7 @@ shinyServer(function(input, output) {
   # print an error message if no movie exists in the category
   output$text <- renderText({
     if(nrow(x())==0){
-      "Sorry! There's no movie in this category."
+      "Oops! There's no movie in this category."
     }
     else{}
   })
@@ -70,5 +70,8 @@ shinyServer(function(input, output) {
       ggplotly(p) 
   })
   
+  output$random <- renderText({
+    
+  })
   
 })
