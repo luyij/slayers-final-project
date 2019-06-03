@@ -69,16 +69,22 @@ shinyUI(fluidPage(
       )
     ),
     tabPanel("Hunt for Fun",
-             tags$head(tags$style("
+             sidebarPanel(
+               tags$head(tags$style("
                        .jhr{
                        display: inline;
                        vertical-align: middle;
                        padding-left: 10px;
                        }")),
-             pickerInput("mood",
-                         label = "How do you feel today?",
-                         choices = df$val,
-                         choicesOpt = list(content = df$img))
+               pickerInput("mood",
+                           label = h4("How do you feel today?"),
+                           choices = df$val,
+                           choicesOpt = list(content = df$img))
+             ),
+             mainPanel(
+               h4("You may want to watch ...")
+               )
+    
     ),
     tabPanel("Help",
            p("About how to use the App")
