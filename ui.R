@@ -39,8 +39,8 @@ shinyUI(fluidPage(
         style = "font-size: 120%",
         h3("MovieHunter"),
         p("MovieHunter was made for everyone to find a movie to watch. The 
-          creators want to make finding and choosing a movie to watch be an 
-          task. Use the Hunt a Movie feature to find a a movie with your preferences.
+          creators want to make finding and choosing a movie to watch be an easy
+          task. Use the Hunt a Movie feature to find a movie with your preferences.
           Use the Hunt for Fun feature to find a movie that fits with your mood."),
         br(),
         p("Here is a Movie you might be interested in watching:"),
