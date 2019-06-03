@@ -47,7 +47,7 @@ shinyUI(fluidPage(
     # Show a plot of the generated distribution
       mainPanel(
         tabsetPanel(type = "tabs",
-                    tabPanel("Movies", tableOutput("table")),
+                    tabPanel("Movies", tableOutput("table"), textOutput("text")),
                     tabPanel("Visualize", plotOutput("plot"))
         )
       )
