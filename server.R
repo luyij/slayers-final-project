@@ -13,13 +13,6 @@ shinyServer(function(input, output) {
   }) 
   
   
-  data <- reactive({
-    full_data %>%
-      filter(grepl(input$genre, genres)) %>%
-      filter(year>= min(input$yearRange) & year<= max(input$yearRange)) %>%
-      filter(language %in% input$language)
-  })
-  
   x <- reactive({
     data <- full_data %>%
       filter(grepl(input$genre, genres)) %>%
@@ -70,8 +63,9 @@ shinyServer(function(input, output) {
       ggplotly(p) 
   })
   
-  output$random <- renderText({
-    
+  output$random <- renderTable({
+    if(input$mood == "HAPPY"){
+    }
   })
   
 })
