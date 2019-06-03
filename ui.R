@@ -11,7 +11,14 @@ library(shiny)
 library(plotly)
 library(markdown)
 library(shinythemes)
+library(shinyWidgets)
 source("test.R")
+
+png(filename = "www/happy.png")
+png(filename = "www/sad.png")
+png(filename = "www/kiss.png")
+png(filename = "www/robot.png")
+png(filename = "www/ghost.png")
 
 
 # Define UI for application that draws a histogram
@@ -30,7 +37,7 @@ shinyUI(fluidPage(
       sidebarLayout(
         sidebarPanel(
           # Filter movies by genre
-          selectInput("genre", "Choose a genre:",
+          selectInput("genre", "Choose a Genre:",
                       choices = sort(genres)),
           # Filter movies by language
           uiOutput("language"),
@@ -55,7 +62,18 @@ shinyUI(fluidPage(
       )
     ),
     tabPanel("Hunt for Fun",
-             p("Random generator by mood")
+             selectizeInput(
+               'mood', 'How do you feel today?',
+               choices = c(" " = "happy.png", " " = "sad.png", " " = "kiss.png", " " = "robot.png", " " = "ghost.png"),
+               options = list(
+                 render = I(
+                   "{
+      option: function(item, escape) {
+      return '<div><img src=\"' + item.value + '\" width = 40 />' + escape(item.label) + '</div>'
+      }
+      }")
+               )
+             )
     ),
     tabPanel("Help",
            p("About how to use the App")

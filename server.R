@@ -9,7 +9,7 @@ shinyServer(function(input, output) {
   output$language <- renderUI({
     data <- full_data %>%
       filter(grepl(input$genre, genres))
-    selectInput("language", "Choose a language:", choices = sort(data[, "language"]))
+    selectInput("language", "Choose a Language:", choices = sort(data[, "language"]))
   }) 
   
   

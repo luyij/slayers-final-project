@@ -45,7 +45,3 @@ format <- function(x){
 
 full_data$keywords <- format(full_data$keywords)
 
-#data <- full_data %>%
-#filter(grepl("Action", genres), language == "English") %>%
-#select(title, year, director, imdb_score, keywords)
-
