@@ -31,15 +31,23 @@ shinyUI(fluidPage(
   theme = shinytheme("slate"),
   
   # Application title
-  titlePanel(title = div(img(src="MHLogo.png", width = 200))),
+  titlePanel(title = div(img(src="MHLogo.png", width = "25%"))),
   
   navbarPage("MovieHunter",
-    tabPanel("Home",
-        h2("About"),
+    tabPanel("Home", 
+        align = "center",
+        style = "font-size: 120%",
+        h3("MovieHunter"),
         p("MovieHunter was made for everyone to find a movie to watch. The 
-          creators want to make finding and choosing a movie to watch be an 
-          task."),
-        HTML('<iframe width="560" height="315" src="https://www.youtube.com/embed/2L3Gvo40DzQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>')
+          creators want to make finding and choosing a movie to watch be an easy
+          task. Use the Hunt a Movie feature to find a movie with your preferences.
+          Use the Hunt for Fun feature to find a movie that fits with your mood."),
+        br(),
+        p("Here is a Movie you might be interested in watching:"),
+        HTML('<iframe width="560" height="315" src="https://www.youtube.com/embed/2L3Gvo40DzQ" 
+             frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
+             allowfullscreen></iframe>'),
+        br(), br(), br()
     ),
 
     tabPanel("Hunt a Movie",
@@ -93,18 +101,19 @@ shinyUI(fluidPage(
                h4(verbatimTextOutput("random"))
                )
     ),
-    tabPanel("Help",
+    tabPanel("Help", 
+           align = "center",
+           style = "font-size: 120%",
            h2("How to use Movie Hunter"),
            h3("Find a Movie"),
            p("Use the filter to find the movies that you are interested in watching."), 
-           tags$li("You can select the genres of the movies that you want to watch such as 
-             comedy or action. The Movie Hunter app allows you to pick multiple genres
-             so that you can be specific"),
-           tags$li("After you pick your genre(s), you can select 
-             the year the movie was produced. To do this, use the slider to pick the time 
+           tags$li(align = "left", "You can select the genres of the movies that you want to watch such as 
+             comedy or action"),
+           tags$li(align = "left", 
+          "Select the year the movie was produced. To do this, use the slider to pick the time 
              frame and if you want to find the movies of a specific year, you can drag 
              the sliders on top of each other"),
-           tags$li("Choose the language that you want to watch the movie"),
+           tags$li(align = "left", "Choose the language that you want to watch the movie"),
            h3("Movie by Mood"),
            p("The Movie by Mood page is a great choice if you want to be adventurous and 
              pick a movie by chance. Click on the emoji that you are feeling and let us 
