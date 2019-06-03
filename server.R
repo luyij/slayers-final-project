@@ -51,7 +51,7 @@ shinyServer(function(input, output) {
   
   url <- a("Google Homepage", href="https://www.google.com/")
   output$tab <- renderUI({
-    tagList("URL link:", url)
+    url
   })
   
   output$plot <- renderPlotly({
@@ -68,7 +68,7 @@ shinyServer(function(input, output) {
     if(input$mood == "HAPPY"){
       movie <- full_data %>% 
         filter(id == sample(1:nrow(full_data),1))
-    }else if(input$mood == "SAD"){
+    }else if(input$mood == "UPSET"){
       movie <- comedy %>% 
         filter(id == sample(1:nrow(comedy),1))
     }else if(input$mood == "LOVED"){
@@ -77,7 +77,7 @@ shinyServer(function(input, output) {
     }else if(input$mood == "FANTASY"){
       movie <- fantasy %>% 
         filter(id == sample(1:nrow(fantasy),1))
-    }else if(input$mood == "TRICKY"){
+    }else if(input$mood == "PLAYFUL"){
       movie <- horror %>% 
         filter(id == sample(1:nrow(horror),1))
     }

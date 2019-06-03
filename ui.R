@@ -15,7 +15,7 @@ library(shinyWidgets)
 source("test.R")
 
 df <- data.frame(
-  val = c("HAPPY","SAD", "LOVED", "FANTASY", "TRICKY")
+  val = c("HAPPY","UPSET", "LOVED", "FANTASY", "PLAYFUL")
 )
 
 df$img = c(
@@ -81,7 +81,7 @@ shinyUI(fluidPage(
                            choices = df$val,
                            choicesOpt = list(content = df$img)
                            ),
-               actionButton("button", "Update")
+               actionButton("button", "Try Another")
              ),
              mainPanel(
                h4("You may want to watch ..."),
