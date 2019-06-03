@@ -14,11 +14,18 @@ library(shinythemes)
 library(shinyWidgets)
 source("test.R")
 
-png(filename = "www/happy.png")
-png(filename = "www/sad.png")
-png(filename = "www/kiss.png")
-png(filename = "www/robot.png")
-png(filename = "www/ghost.png")
+df <- data.frame(
+  val = c("HAPPY","SAD", "LOVED", "FANTASY", "TRICKY")
+)
+
+df$img = c(
+  sprintf("<img src='happy.png' width=25px><div class='jhr'>%s</div></img>", df$val[1]),
+  sprintf("<img src='sad.png' width=25px><div class='jhr'>%s</div></img>", df$val[2]),
+  sprintf("<img src='kiss.png' width=25px><div class='jhr'>%s</div></img>", df$val[3]),
+  sprintf("<img src='robot.png' width=25px><div class='jhr'>%s</div></img>", df$val[4]),
+  sprintf("<img src='ghost.png' width=25px><div class='jhr'>%s</div></img>", df$val[5])
+)
+
 
 
 # Define UI for application that draws a histogram
@@ -62,18 +69,16 @@ shinyUI(fluidPage(
       )
     ),
     tabPanel("Hunt for Fun",
-             selectizeInput(
-               'mood', 'How do you feel today?',
-               choices = c(" " = "happy.png", " " = "sad.png", " " = "kiss.png", " " = "robot.png", " " = "ghost.png"),
-               options = list(
-                 render = I(
-                   "{
-      option: function(item, escape) {
-      return '<div><img src=\"' + item.value + '\" width = 40 />' + escape(item.label) + '</div>'
-      }
-      }")
-               )
-             )
+             tags$head(tags$style("
+                       .jhr{
+                       display: inline;
+                       vertical-align: middle;
+                       padding-left: 10px;
+                       }")),
+             pickerInput("mood",
+                         label = "How do you feel today?",
+                         choices = df$val,
+                         choicesOpt = list(content = df$img))
     ),
     tabPanel("Help",
            p("About how to use the App")
