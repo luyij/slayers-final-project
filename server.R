@@ -9,7 +9,8 @@ shinyServer(function(input, output) {
   output$language <- renderUI({
     data <- full_data %>%
       filter(grepl(input$genre, genres))
-    selectInput("language", "Choose a Language:", choices = sort(data[, "language"]))
+    languages <- unique(data[, "language"])
+    pickerInput("language", "Choose a Language:", choices = sort(languages), selected = "English")
   }) 
   
   
@@ -17,6 +18,7 @@ shinyServer(function(input, output) {
     data <- full_data %>%
       filter(grepl(input$genre, genres)) %>%
       filter(year>= min(input$yearRange) & year<= max(input$yearRange)) %>%
+      filter(duration>= min(input$duration) & duration<= max(input$duration)) %>%
       filter(language %in% input$language)
     if(is.null(input$color) & is.null(input$type)){
       data
@@ -51,37 +53,44 @@ shinyServer(function(input, output) {
   
   url <- a("Google Homepage", href="https://www.google.com/")
   output$tab <- renderUI({
-    tagList("URL link:", url)
+    url
   })
   
   output$plot <- renderPlotly({
+    if(nrow(x())==0){}
+    else{
       p <- ggplot() +
         geom_point(data = x(), aes(x=year, y=imdb_score, colour = content_rating, key = title, stat = "identity")) +
         theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
               panel.background = element_blank(), axis.line = element_line(colour = "black")) +
         labs(title = "IMDB Score", x = "Year", y ="IMDB Scores")
-      ggplotly(p) 
+      ggplotly(p)} 
   })
   
-  output$random <- renderText({
+  output$random <- renderUI({
     input$button
     if(input$mood == "HAPPY"){
       movie <- full_data %>% 
         filter(id == sample(1:nrow(full_data),1))
-    }else if(input$mood == "SAD"){
+    }else if(input$mood == "UPSET"){
       movie <- comedy %>% 
         filter(id == sample(1:nrow(comedy),1))
     }else if(input$mood == "LOVED"){
       movie <- romance %>% 
         filter(id == sample(1:nrow(romance),1))
-    }else if(input$mood == "FANTASY"){
+    }else if(input$mood == "IMAGINATIVE"){
       movie <- fantasy %>% 
         filter(id == sample(1:nrow(fantasy),1))
-    }else if(input$mood == "TRICKY"){
+    }else if(input$mood == "PLAYFUL"){
       movie <- horror %>% 
         filter(id == sample(1:nrow(horror),1))
     }
-    paste(movie$title[1])
+    url <- a(movie$title[1], href=full_data[full_data$title == movie$title[1],'link'])
+    url
+  })
+  
+  output$text1 <- renderText({
+    "You may want to watch ..."
   })
   
 })
