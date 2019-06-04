@@ -20,8 +20,7 @@ shinyServer(function(input, output) {
       filter(grepl(input$genre, genres)) %>%
       filter(year>= min(input$yearRange) & year<= max(input$yearRange)) %>%
       filter(duration>= min(input$duration) & duration<= max(input$duration)) %>%
-      filter(language %in% input$language) %>%
-      filter(grepl(input$search, director, ignore.case = TRUE))
+      filter(language %in% input$language)
     if(is.null(input$color) & is.null(input$type)){
       data
     } else if(!is.null(input$type) & is.null(input$color)){
