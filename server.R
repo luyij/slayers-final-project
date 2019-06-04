@@ -58,6 +58,10 @@ shinyServer(function(input, output) {
     else{}
   })
   
+  l <- list(
+    bgcolor = "#333333")
+
+  
   output$plot <- renderPlotly({
     if(nrow(x())==0){}
     else{
@@ -71,11 +75,15 @@ shinyServer(function(input, output) {
               axis.text = element_text(colour = "#FFFFFF"),
               axis.title = element_text(colour = "#FFFFFF"),
               plot.title = element_text(colour = "#FFFFFF"),
-              legend.title = element_text(color = "#FFFFFF", size = 9)) +
-        labs(title = paste0("IMDB Score of ", input$genre, " movies from ", input$yearRange[1], " to ", input$yearRange[2])) +
+              legend.title = element_text(colour = "white", size = 10),
+              legend.text = element_text(colour = "white")) +
+        labs(color = "Content Rating") +
+        labs(title = paste0("IMDb Scores of ", input$genre, " movies from ", input$yearRange[1], " to ", input$yearRange[2])) +
         scale_x_discrete(name = "Year", seq(1916,2016,10)) +
-        scale_y_discrete(name = "IMDB Score", seq(0.0,10.0,0.5)) 
-      ggplotly(p) %>% config(displayModeBar = F) 
+        scale_y_discrete(name = "IMDb Scores", seq(0.0,10.0,0.5)) 
+      ggplotly(p, tooltip = c("title", "content_rating")) %>% 
+        config(displayModeBar = F) %>%
+        layout(legend = l)
     }
   })
   
@@ -103,21 +111,6 @@ shinyServer(function(input, output) {
   
   output$text1 <- renderText("You may want to watch ...")
   output$text2 <- renderText("Note: please space between first name and last name!")
-  
-  output$url1 <- renderUI({
-    url1 <- a("She's the Man", href="https://www.imdb.com/title/tt0454945/")
-    tagList("Favorite Movie:", url1)
-  })
-  
-  output$url2 <- renderUI({
-    url2 <- a("Godzilla", href="https://www.imdb.com/title/tt3741700/")
-    tagList("Favorite Movie:", url2)
-  })
-  
-  output$url3 <- renderUI({
-    url3 <- a("Green Book", href="https://www.imdb.com/title/tt6966692/")
-    tagList("Favorite Movie:", url3)
-  })
   
   
 })

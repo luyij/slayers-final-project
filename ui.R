@@ -40,10 +40,9 @@ shinyUI(fluidPage(
         h3("MovieHunter"),
         p("MovieHunter was made for everyone to find a movie to watch. The 
           creators want to make finding and choosing a movie to watch be an easy
-          task. Use the Hunt a Movie feature to find a movie with your preferences.
-          Use the Hunt for Fun feature to find a movie that fits with your mood. 
-          The data used is from Kaggle and sourced from The Movie Database (TMDb)"),
-        a(href="https://www.kaggle.com/tmdb/tmdb-movie-metadata", "Kaggle"),
+          task. Use the 'Hunt a Movie' feature to find a movie with your preferences.
+          Use the 'Hunt for Fun' feature to find a movie that fits with your mood. 
+          The data used is from", a("Kaggle", href="https://www.kaggle.com/tmdb/tmdb-movie-metadata"),"and sourced from The Movie Database (TMDb)."),
         br(), br(),
         p("Here is a Movie you might be interested in watching:"),
         HTML('<iframe width="560" height="315" src="https://www.youtube.com/embed/2L3Gvo40DzQ" 
@@ -55,17 +54,17 @@ shinyUI(fluidPage(
           column(4,
                  h4("Isabella Garcia"),
                  p("Year: Junior"),
-                 uiOutput("url1")
+                 p("Favorite Movie:", a("She's the Man", href="https://www.imdb.com/title/tt0454945/"))
           ),
           column(4,
                  h4("Johnny Zou"),
                  p("Year: Sophomore"),
-                 uiOutput("url2")
+                 p("Favorite Movie:", a("Godzilla", href="https://www.imdb.com/title/tt3741700/"))
           ),
           column(4,
                  h4("Luyi Jia"),
                  p("Year: Senior"),
-                 uiOutput("url3")
+                 p("Favorite Movie:", a("Green Book", href="https://www.imdb.com/title/tt6966692/"))
           )
         ),
         br(), br()
