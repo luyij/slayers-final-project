@@ -55,17 +55,17 @@ shinyUI(fluidPage(
           column(4,
                  h4("Isabella Garcia"),
                  p("Year: Junior"),
-                 p("Favorite Movie: She's the Man")
+                 uiOutput("url1")
           ),
           column(4,
                  h4("Johnny Zou"),
                  p("Year: Sophomore"),
-                 p("Favorite Movie: Godzilla")
+                 uiOutput("url2")
           ),
           column(4,
                  h4("Luyi Jia"),
                  p("Year: Senior"),
-                 p("Favorite Movie: Green Book")
+                 uiOutput("url3")
           )
         ),
         br(), br()
@@ -166,7 +166,12 @@ shinyUI(fluidPage(
            h3("Movie by Mood"),
            p("The Movie by Mood page is a great choice if you want to be adventurous and 
              pick a movie by chance. Choose an emoji that you are feeling and let us 
-             choose a movie for you!")
+             choose a movie for you!"),
+           h3("Visualization Source"),
+           p("Visualizations are base on IMDb scores of the movies. IMDb is an online database 
+            of information related to films, television programs, home videos and video games, 
+            and internet streams, including cast, production crew and personnel biographies, 
+            plot summaries, trivia, and fan reviews and ratings.")
     )
   )
 ))

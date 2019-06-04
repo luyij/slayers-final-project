@@ -71,9 +71,9 @@ shinyServer(function(input, output) {
               axis.text = element_text(colour = "#FFFFFF"),
               axis.title = element_text(colour = "#FFFFFF"),
               plot.title = element_text(colour = "#FFFFFF")) +
-        labs(title = paste0("IMDB Score of ", input$genre, " movies from ", input$yearRange[1], " to ", input$yearRange[2])) +
+        labs(title = paste0("IMDb Score of ", input$genre, " movies from ", input$yearRange[1], " to ", input$yearRange[2])) +
         scale_x_discrete(name = "Year", seq(1916,2016,10)) +
-        scale_y_discrete(name = "IMDB Score", seq(0,10,0.5)) 
+        scale_y_discrete(name = "IMDb Score", seq(0,10,0.5)) 
       ggplotly(p) %>% config(displayModeBar = F) 
     }
   })
@@ -102,5 +102,21 @@ shinyServer(function(input, output) {
   
   output$text1 <- renderText("You may want to watch ...")
   output$text2 <- renderText("Note: please space between first name and last name!")
+  
+  output$url1 <- renderUI({
+    url1 <- a("She's the Man", href="https://www.imdb.com/title/tt0454945/")
+    tagList("Favorite Movie:", url1)
+  })
+  
+  output$url2 <- renderUI({
+    url2 <- a("Godzilla", href="https://www.imdb.com/title/tt3741700/")
+    tagList("Favorite Movie:", url2)
+  })
+  
+  output$url3 <- renderUI({
+    url3 <- a("Green Book", href="https://www.imdb.com/title/tt6966692/")
+    tagList("Favorite Movie:", url3)
+  })
+  
   
 })
