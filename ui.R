@@ -94,7 +94,8 @@ shinyUI(fluidPage(
                            choices = df$val,
                            choicesOpt = list(content = df$img)
                            ),
-               actionButton("button", "Try Another")
+               actionButton("button", "Try Another"), 
+               helpText('Note: movie titles are linked to their IMDb pages.')
              ),
              mainPanel(
                tags$head(tags$style("#text1{color: #FF9966;
