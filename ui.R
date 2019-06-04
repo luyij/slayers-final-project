@@ -176,6 +176,11 @@ shinyUI(fluidPage(
            p("The Movie by Mood page is a great choice if you want to be adventurous and 
              pick a movie by chance. Choose an emoji that you are feeling and let us 
              choose a movie for you!"),
+          h3("Analysis"),
+          p("In general, there is more data in the recent years than from 1916, the earliest movie in the data. 
+            When looking at the visualize feature keep that in mind. There are more movies in English than any other language.
+            Before 1968, film ratings were nonexistent so there is a trend of having more content ratings as the years 
+            become closer to present time."),
            h3("Visualization Source"),
            p("Visualizations are base on IMDb scores of the movies. IMDb is an online database 
             of information related to films, television programs, home videos and video games, 
