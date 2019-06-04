@@ -23,7 +23,7 @@ full_data$content_rating <- full_data$content_rating %>%
   str_replace_all("GP", "PG") %>%
   str_replace_all("Not Rated|Passed|Approved", "Unrated")
 
-# categorize empty rows of 'language' and 'content_rating"
+# categorize empty rows of 'language' and 'content_rating'
 full_data$language <- ifelse(full_data$language == "", str_replace_all(full_data$language, "|", "Other"), full_data$language)
 full_data$content_rating <- ifelse(full_data$content_rating == "", str_replace_all(full_data$content_rating, "|", "Unrated"), full_data$content_rating)
 
