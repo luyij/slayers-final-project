@@ -1,7 +1,6 @@
 library(ggplot2)
 library(shiny)
 library(plotly)
-library(DT)
 source("test.R")
 
 
@@ -38,7 +37,7 @@ shinyServer(function(input, output) {
   output$table <- renderDataTable({
     if(nrow(x())==0){}
     else{
-      DT::datatable(options = list(pageLength = 25),
+      datatable(options = list(pageLength = 25),
         x() %>% select(title, year, director, imdb_score, keywords) %>%
                 rename_all(toupper))
     }

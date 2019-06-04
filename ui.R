@@ -12,7 +12,6 @@ library(plotly)
 library(markdown)
 library(shinythemes)
 library(shinyWidgets)
-library(DT)
 source("test.R")
 
 df <- data.frame(
@@ -48,7 +47,26 @@ shinyUI(fluidPage(
         HTML('<iframe width="560" height="315" src="https://www.youtube.com/embed/2L3Gvo40DzQ" 
              frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
              allowfullscreen></iframe>'),
-        br(), br(), br()
+        br(), br(), br(),
+        h2("About the Creators"),
+        fluidRow(
+          column(4,
+                 h4("Isabella Garcia"),
+                 p("Year: Junior"),
+                 p("Favorite Movie: She's the Man")
+          ),
+          column(4,
+                 h4("Johnny Zou"),
+                 p("Year: Sophomore"),
+                 p("Favorite Movie: Godzilla")
+          ),
+          column(4,
+                 h4("Luyi Jia"),
+                 p("Year: Senior"),
+                 p("Favorite Movie: Green Book")
+          )
+        ),
+        br(), br()
     ),
 
     tabPanel("Hunt a Movie",
@@ -74,6 +92,7 @@ shinyUI(fluidPage(
     
     # Show a plot of the generated distribution
       mainPanel(
+
         tabsetPanel(type = "tabs",
                     tabPanel("Movies", 
                              br(),
@@ -93,6 +112,7 @@ shinyUI(fluidPage(
                              textOutput("text2"),
                              br(), 
                              dataTableOutput("table") , textOutput("text")),
+
                     tabPanel("Visualize", textOutput("error"), plotlyOutput("plot"))
 
         )     
