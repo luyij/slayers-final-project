@@ -9,7 +9,8 @@ shinyServer(function(input, output) {
   output$language <- renderUI({
     data <- full_data %>%
       filter(grepl(input$genre, genres))
-    selectInput("language", "Choose a Language:", choices = sort(data[, "language"]))
+    languages <- unique(data[, "language"])
+    pickerInput("language", "Choose a Language:", choices = sort(languages), selected = "English")
   }) 
   
   
@@ -17,6 +18,7 @@ shinyServer(function(input, output) {
     data <- full_data %>%
       filter(grepl(input$genre, genres)) %>%
       filter(year>= min(input$yearRange) & year<= max(input$yearRange)) %>%
+      filter(duration>= min(input$duration) & duration<= max(input$duration)) %>%
       filter(language %in% input$language)
     if(is.null(input$color) & is.null(input$type)){
       data
@@ -65,7 +67,7 @@ shinyServer(function(input, output) {
       ggplotly(p)} 
   })
   
-  output$random <- renderText({
+  output$random <- renderUI({
     input$button
     if(input$mood == "HAPPY"){
       movie <- full_data %>% 
@@ -83,7 +85,12 @@ shinyServer(function(input, output) {
       movie <- horror %>% 
         filter(id == sample(1:nrow(horror),1))
     }
-    paste(movie$title[1])
+    url <- a(movie$title[1], href=full_data[full_data$title == movie$title[1],'link'])
+    url
+  })
+  
+  output$text1 <- renderText({
+    "You may want to watch ..."
   })
   
 })
