@@ -74,7 +74,24 @@ shinyUI(fluidPage(
     # Show a plot of the generated distribution
       mainPanel(
         tabsetPanel(type = "tabs",
-                    tabPanel("Movies", tableOutput("table"), textOutput("text")),
+                    tabPanel("Movies", 
+                             br(),
+                             searchInput(
+                               inputId = "search", label = "Search by director",
+                               placeholder = "type a director name here",
+                               btnSearch = icon("search"),
+                               btnReset = icon("remove"),
+                               width = "450px"
+                             ),
+                             tags$head(tags$style("#text2{color: #FF3333;
+                                 font-size: 14px;
+                                 font-style: italic;
+                                 }"
+                             )
+                             ),
+                             textOutput("text2"),
+                             br(), 
+                             tableOutput("table"), textOutput("text")),
                     tabPanel("Visualize", textOutput("error"), plotlyOutput("plot"))
         )
       )

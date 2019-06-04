@@ -19,7 +19,8 @@ shinyServer(function(input, output) {
       filter(grepl(input$genre, genres)) %>%
       filter(year>= min(input$yearRange) & year<= max(input$yearRange)) %>%
       filter(duration>= min(input$duration) & duration<= max(input$duration)) %>%
-      filter(language %in% input$language)
+      filter(language %in% input$language) %>%
+      filter(grepl(input$search, director, ignore.case = TRUE))
     if(is.null(input$color) & is.null(input$type)){
       data
     } else if(!is.null(input$type) & is.null(input$color)){
@@ -89,8 +90,7 @@ shinyServer(function(input, output) {
     url
   })
   
-  output$text1 <- renderText({
-    "You may want to watch ..."
-  })
+  output$text1 <- renderText("You may want to watch ...")
+  output$text2 <- renderText("Note: please space between first name and last name!")
   
 })
