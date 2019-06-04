@@ -4,9 +4,11 @@ library(R.utils)
 
 full_data <- read.csv("data/movie_metadata.csv", stringsAsFactors=FALSE)
 
+full_data$title <- str_sub(full_data$title, 1, str_length(full_data$title)-1)
+
 full_data <- full_data %>% 
   select(movie_title, title_year, genres, language, country, imdb_score,
-         director_name, color, content_rating, budget, movie_imdb_link, 
+         director_name, color, content_rating, gross, duration, movie_imdb_link, 
          plot_keywords) %>%
   distinct(.keep_all = FALSE) %>%
   rename(title = movie_title, year = title_year, director = director_name, 
