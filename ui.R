@@ -31,7 +31,7 @@ shinyUI(fluidPage(
   theme = shinytheme("slate"),
   
   # Application title
-  titlePanel(title = div(img(src="MHLogo.png", width = "25%"))),
+  titlePanel(title = div(img(src="MHLogo.png", width = "20%"))),
   
   navbarPage("MovieHunter",
     tabPanel("Home", 
@@ -62,7 +62,7 @@ shinyUI(fluidPage(
           uiOutput("tab"),
           # Filter movies by year
           sliderInput("yearRange", label = "Year Range", min = 1916, 
-                         max = 2017, value = c(1916, 2016), sep = ""),
+                         max = 2016, value = c(1916, 2016), sep = ""),
           checkboxGroupInput("type", label = "Content Rating", 
                              choices = sort(types)),
           checkboxGroupInput("color", label = "Color", 
