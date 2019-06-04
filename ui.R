@@ -143,7 +143,7 @@ shinyUI(fluidPage(
            tags$li(align = "left", "Choose the language that you want to watch the movie"),
            h3("Movie by Mood"),
            p("The Movie by Mood page is a great choice if you want to be adventurous and 
-             pick a movie by chance. Click on the emoji that you are feeling and let us 
+             pick a movie by chance. Choose an emoji that you are feeling and let us 
              choose a movie for you!")
     )
   )
