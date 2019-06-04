@@ -112,5 +112,6 @@ shinyServer(function(input, output) {
   output$text1 <- renderText("You may want to watch ...")
   output$text2 <- renderText("Note: please space between first name and last name!")
   
+  output$note <- renderText("Note: movie titles are linked to their IMDb pages.")
   
 })

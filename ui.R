@@ -123,7 +123,7 @@ shinyUI(fluidPage(
     ),
 
     tabPanel("Hunt for Fun",
-             sidebarPanel(
+             align = "center",
                tags$head(tags$style("
                        .jhr{
                        display: inline;
@@ -131,23 +131,27 @@ shinyUI(fluidPage(
                        padding-left: 10px;
                        }")),
                pickerInput("mood",
-                           label = h4("How do you feel today?"),
+                           label = h3("How do you feel today?"),
                            choices = df$val,
                            choicesOpt = list(content = df$img)
                            ),
-               actionButton("button", "Try Another"), 
-               helpText('Note: movie titles are linked to their IMDb pages.')
+             tags$head(tags$style("#note{color: #CCCCCC;
+                                 font-size: 15px;
+                                 }"
+             )
              ),
-             mainPanel(
-               tags$head(tags$style("#text1{color: #FF9966;
+             textOutput("note"),
+             h4(""),
+               actionButton("button", "Try Another"), 
+              tags$head(tags$style("#text1{color: #FF9966;
                                  font-size: 20px;
                                  font-style: italic;
                                  }"
                )
                ),
+             h4(""),
                textOutput("text1"),
                h2(uiOutput("random"))
-               )
     ),
     tabPanel("Help", 
            align = "center",
