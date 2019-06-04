@@ -59,7 +59,7 @@ shinyServer(function(input, output) {
   })
   
   l <- list(
-    bgcolor = "#333333")
+    bgcolor = "#272b30")
 
   
   output$plot <- renderPlotly({
@@ -67,8 +67,8 @@ shinyServer(function(input, output) {
     else{
       p <- ggplot(x() %>% arrange(desc(imdb_score)), aes(factor(year), factor(imdb_score))) +
         geom_point(aes(text=title, language=language, colour = content_rating)) +
-        theme(plot.background = element_rect(fill = "#333333"),
-              panel.background = element_rect(fill = "#333333"),
+        theme(plot.background = element_rect(fill = "#272b30"),
+              panel.background = element_rect(fill = "#272b30"),
               axis.line = element_line(colour = "#FFFFFF"),
               panel.grid.major = element_blank(),
               panel.grid.minor = element_blank(),
