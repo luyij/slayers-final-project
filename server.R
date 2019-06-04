@@ -81,7 +81,7 @@ shinyServer(function(input, output) {
         labs(title = paste0("IMDb Scores of ", input$genre, " movies from ", input$yearRange[1], " to ", input$yearRange[2])) +
         scale_x_discrete(name = "Year", seq(1916,2016,10)) +
         scale_y_discrete(name = "IMDb Scores", seq(0.0,10.0,0.5)) 
-      ggplotly(p, tooltip = c("title", "content_rating")) %>% 
+      ggplotly(p) %>% 
         config(displayModeBar = F) %>%
         layout(legend = l)
     }
