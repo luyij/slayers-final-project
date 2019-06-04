@@ -63,7 +63,7 @@ shinyServer(function(input, output) {
     }
     else{
       p <- ggplot(x() %>% arrange(desc(imdb_score)), aes(factor(year), factor(imdb_score))) +
-        geom_point(aes(text=title, language=language, color = x()$content_rating)) +
+        geom_point(aes(text=title, language=language, colour = content_rating)) +
         theme(plot.background = element_rect(fill = "#333333"),
               panel.background = element_rect(fill = "#333333"),
               axis.line = element_line(colour = "#FFFFFF"),
@@ -71,10 +71,11 @@ shinyServer(function(input, output) {
               panel.grid.minor = element_blank(),
               axis.text = element_text(colour = "#FFFFFF"),
               axis.title = element_text(colour = "#FFFFFF"),
-              plot.title = element_text(colour = "#FFFFFF")) +
+              plot.title = element_text(colour = "#FFFFFF"),
+              legend.title = element_text(color = "#FFFFFF", size = 9)) +
         labs(title = paste0("IMDB Score of ", input$genre, " movies from ", input$yearRange[1], " to ", input$yearRange[2])) +
         scale_x_discrete(name = "Year", seq(1916,2016,10)) +
-        scale_y_discrete(name = "IMDB Score", c(0,1,1.5,2,2.5,3,3.5,4,4.5,5,5.5,6,6.5,7,7.5,8,8.5,9,9.5,10)) 
+        scale_y_discrete(name = "IMDB Score", seq(0.0,10.0,0.5)) 
       ggplotly(p) %>% config(displayModeBar = F) 
     }
   })
