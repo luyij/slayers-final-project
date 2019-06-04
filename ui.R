@@ -12,7 +12,6 @@ library(plotly)
 library(markdown)
 library(shinythemes)
 library(shinyWidgets)
-library(DT)
 source("test.R")
 
 df <- data.frame(
@@ -63,10 +62,11 @@ shinyUI(fluidPage(
           ),
           column(4,
                  h4("Luyi Jia"),
-                 p("")
+                 p("Year: Senior"),
+                 p("Favorite Movie: Green Book")
           )
         ),
-        br(), br(), br()
+        br(), br()
     ),
 
     tabPanel("Hunt a Movie",
@@ -92,8 +92,27 @@ shinyUI(fluidPage(
     
     # Show a plot of the generated distribution
       mainPanel(
-        tabsetPanel(type = "tabs", 
-                    tabPanel("Movies", dataTableOutput("table"), textOutput("text")),
+
+        tabsetPanel(type = "tabs",
+                    tabPanel("Movies", 
+                             br(),
+                             searchInput(
+                               inputId = "search", label = "Search by director",
+                               placeholder = "type a director name here",
+                               btnSearch = icon("search"),
+                               btnReset = icon("remove"),
+                               width = "450px"
+                             ),
+                             tags$head(tags$style("#text2{color: #FF3333;
+                                 font-size: 14px;
+                                 font-style: italic;
+                                 }"
+                             )
+                             ),
+                             textOutput("text2"),
+                             br(), 
+                             dataTableOutput("table") , textOutput("text")),
+
                     tabPanel("Visualize", textOutput("error"), plotlyOutput("plot"))
 
         )     
@@ -144,7 +163,7 @@ shinyUI(fluidPage(
            tags$li(align = "left", "Choose the language that you want to watch the movie"),
            h3("Movie by Mood"),
            p("The Movie by Mood page is a great choice if you want to be adventurous and 
-             pick a movie by chance. Click on the emoji that you are feeling and let us 
+             pick a movie by chance. Choose an emoji that you are feeling and let us 
              choose a movie for you!")
     )
   )
