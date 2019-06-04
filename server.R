@@ -1,6 +1,7 @@
 library(ggplot2)
 library(shiny)
 library(plotly)
+library(DT)
 source("test.R")
 
 
@@ -34,12 +35,12 @@ shinyServer(function(input, output) {
   })
   
   # print table if movies exist in the category
-  output$table <- renderTable({
+  output$table <- renderDataTable({
     if(nrow(x())==0){}
     else{
-      x() %>% 
-        select(title, year, director, imdb_score, keywords) %>%
-        rename_all(toupper)
+      DT::datatable(options = list(pageLength = 25),
+        x() %>% select(title, year, director, imdb_score, keywords) %>%
+                rename_all(toupper))
     }
   })
   
@@ -50,22 +51,32 @@ shinyServer(function(input, output) {
     }
     else{}
   })
-
   
-  url <- a("Google Homepage", href="https://www.google.com/")
-  output$tab <- renderUI({
-    url
+  output$error <- renderText({
+    if(nrow(x())==0){
+      "Oops! There's no movie in this category."
+    }
+    else{}
   })
   
   output$plot <- renderPlotly({
     if(nrow(x())==0){}
     else{
-      p <- ggplot() +
-        geom_point(data = x(), aes(x=year, y=imdb_score, color = ~content_rating)) +
-        theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
-              panel.background = element_blank(), axis.line = element_line(colour = "black")) +
-        labs(title = "IMDB Score", x = "Year", y ="IMDB Scores")
-      ggplotly(p)} 
+      p <- ggplot(x() %>% arrange(desc(imdb_score)), aes(factor(year), factor(imdb_score))) +
+        geom_point(aes(text=title, language=language, color = x()$content_rating)) +
+        theme(plot.background = element_rect(fill = "#333333"),
+              panel.background = element_rect(fill = "#333333"),
+              axis.line = element_line(colour = "#FFFFFF"),
+              panel.grid.major = element_blank(),
+              panel.grid.minor = element_blank(),
+              axis.text = element_text(colour = "#FFFFFF"),
+              axis.title = element_text(colour = "#FFFFFF"),
+              plot.title = element_text(colour = "#FFFFFF")) +
+        labs(title = paste0("IMDB Score of ", input$genre, " movies from ", input$yearRange[1], " to ", input$yearRange[2])) +
+        scale_x_discrete(name = "Year", seq(1916,2016,10)) +
+        scale_y_discrete(name = "IMDB Score", seq(0,10,0.5)) 
+      ggplotly(p) %>% config(displayModeBar = F) 
+    }
   })
   
   output$random <- renderUI({

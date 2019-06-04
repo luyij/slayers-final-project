@@ -12,6 +12,7 @@ library(plotly)
 library(markdown)
 library(shinythemes)
 library(shinyWidgets)
+library(DT)
 source("test.R")
 
 df <- data.frame(
@@ -62,7 +63,7 @@ shinyUI(fluidPage(
           # Filter movies by year
           sliderInput("yearRange", label = "Year Range", min = 1916, 
                          max = 2016, value = c(1916, 2016), sep = ""),
-          sliderInput("duration", label = "Duration(min)", min = 0, 
+          sliderInput("duration", label = "Duration (min)", min = 0, 
                       max = 520, value = c(7, 511), sep = ""),
           checkboxGroupInput("type", label = "Content Rating", 
                              choices = sort(types)),
@@ -91,10 +92,12 @@ shinyUI(fluidPage(
                              ),
                              textOutput("text2"),
                              br(), 
-                             tableOutput("table"), textOutput("text")),
+                             dataTableOutput("table") , textOutput("text")),
                     tabPanel("Visualize", textOutput("error"), plotlyOutput("plot"))
-        )
+
+        )     
       )
+
       )
     ),
 
