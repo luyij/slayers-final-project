@@ -48,6 +48,24 @@ shinyUI(fluidPage(
         HTML('<iframe width="560" height="315" src="https://www.youtube.com/embed/2L3Gvo40DzQ" 
              frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
              allowfullscreen></iframe>'),
+        br(), br(), br(),
+        h2("About the Creators"),
+        fluidRow(
+          column(4,
+                 h4("Isabella Garcia"),
+                 p("Year: Junior"),
+                 p("Favorite Movie: She's the Man")
+          ),
+          column(4,
+                 h4("Johnny Zou"),
+                 p("Year: Sophomore"),
+                 p("Favorite Movie: Godzilla")
+          ),
+          column(4,
+                 h4("Luyi Jia"),
+                 p("")
+          )
+        ),
         br(), br(), br()
     ),
 
@@ -74,8 +92,8 @@ shinyUI(fluidPage(
     
     # Show a plot of the generated distribution
       mainPanel(
-        tabsetPanel(type = "tabs",
-                    tabPanel("Movies", DT::dataTableOutput("table"), textOutput("text")),
+        tabsetPanel(type = "tabs", 
+                    tabPanel("Movies", dataTableOutput("table"), textOutput("text")),
                     tabPanel("Visualize", textOutput("error"), plotlyOutput("plot"))
 
         )     
