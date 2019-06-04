@@ -47,22 +47,33 @@ shinyServer(function(input, output) {
     }
     else{}
   })
-
   
-  url <- a("Google Homepage", href="https://www.google.com/")
-  output$tab <- renderUI({
-    url
+  output$error <- renderText({
+    if(nrow(x())==0){
+      "Oops! There's no movie in this category."
+    }
+    else{}
   })
   
   output$plot <- renderPlotly({
-    if(nrow(x())==0){}
+    if(nrow(x())==0){
+    }
     else{
-      p <- ggplot() +
-        geom_point(data = x(), aes(x=year, y=imdb_score, key = title)) +
-        theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
-              panel.background = element_blank(), axis.line = element_line(colour = "black")) +
-        labs(title = "IMDB Score", x = "Year", y ="IMDB Scores")
-      ggplotly(p)} 
+      p <- ggplot(x() %>% arrange(desc(imdb_score)), aes(factor(year), factor(imdb_score))) +
+        geom_point(aes(text=title, language=language), colour = "#FFFFFF") +
+        theme(plot.background = element_rect(fill = "#333333"),
+              panel.background = element_rect(fill = "#333333"),
+              axis.line = element_line(colour = "#FFFFFF"),
+              panel.grid.major = element_blank(),
+              panel.grid.minor = element_blank(),
+              axis.text = element_text(colour = "#FFFFFF"),
+              axis.title = element_text(colour = "#FFFFFF"),
+              plot.title = element_text(colour = "#FFFFFF")) +
+        labs(title = paste0("IMDB Score of ", input$genre, " movies from ", input$yearRange[1], " to ", input$yearRange[2])) +
+        scale_x_discrete(name = "Year", seq(1916,2016,10)) +
+        scale_y_discrete(name = "IMDB Score", c(0,1,1.5,2,2.5,3,3.5,4,4.5,5,5.5,6,6.5,7,7.5,8,8.5,9,9.5,10)) 
+      ggplotly(p) %>% config(displayModeBar = F) 
+    }
   })
   
   output$random <- renderText({
