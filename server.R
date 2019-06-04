@@ -1,6 +1,7 @@
 library(ggplot2)
 library(shiny)
 library(plotly)
+library(DT)
 source("test.R")
 
 
@@ -33,12 +34,12 @@ shinyServer(function(input, output) {
   })
   
   # print table if movies exist in the category
-  output$table <- renderTable({
+  output$table <- DT::renderDataTable({
     if(nrow(x())==0){}
     else{
-      x() %>% 
-        select(title, year, director, imdb_score, keywords) %>%
-        rename_all(toupper)
+      DT::datatable(options = list(pageLength = 25),
+        x() %>% select(title, year, director, imdb_score, keywords) %>%
+                rename_all(toupper))
     }
   })
   
