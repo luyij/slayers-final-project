@@ -55,16 +55,15 @@ shinyUI(fluidPage(
       sidebarLayout(
         sidebarPanel(
           # Filter movies by genre
-          selectInput("genre", "Choose a Genre:",
+          pickerInput("genre", "Choose a Genre:",
                       choices = sort(genres)),
           # Filter movies by language
           uiOutput("language"),
-          uiOutput("tab"),
           # Filter movies by year
           sliderInput("yearRange", label = "Year Range", min = 1916, 
                          max = 2016, value = c(1916, 2016), sep = ""),
-          sliderInput("duration", label = "duration", min = 7, 
-                      max = 511, value = c(7, 511), sep = ""),
+          sliderInput("duration", label = "Duration(min)", min = 0, 
+                      max = 520, value = c(7, 511), sep = ""),
           checkboxGroupInput("type", label = "Content Rating", 
                              choices = sort(types)),
           checkboxGroupInput("color", label = "Color", 

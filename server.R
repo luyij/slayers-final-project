@@ -9,7 +9,8 @@ shinyServer(function(input, output) {
   output$language <- renderUI({
     data <- full_data %>%
       filter(grepl(input$genre, genres))
-    selectInput("language", "Choose a Language:", choices = sort(data[, "language"]))
+    language <- unique(data[, "language"])
+    pickerInput("language", "Choose a Language:", choices = sort(language), selected = "English")
   }) 
   
   
@@ -17,6 +18,7 @@ shinyServer(function(input, output) {
     data <- full_data %>%
       filter(grepl(input$genre, genres)) %>%
       filter(year>= min(input$yearRange) & year<= max(input$yearRange)) %>%
+      filter(duration>= min(input$duration) & duration<= max(input$duration)) %>%
       filter(language %in% input$language)
     if(is.null(input$color) & is.null(input$type)){
       data
@@ -46,12 +48,6 @@ shinyServer(function(input, output) {
       "Oops! There's no movie in this category."
     }
     else{}
-  })
-
-  
-  url <- a("Google Homepage", href="https://www.google.com/")
-  output$tab <- renderUI({
-    url
   })
   
   output$plot <- renderPlotly({
