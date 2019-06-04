@@ -62,7 +62,9 @@ shinyUI(fluidPage(
           uiOutput("tab"),
           # Filter movies by year
           sliderInput("yearRange", label = "Year Range", min = 1916, 
-                         max = 2017, value = c(1916, 2016), sep = ""),
+                         max = 2016, value = c(1916, 2016), sep = ""),
+          sliderInput("duration", label = "Duration (min)", min = 7, 
+                      max = 511, value = c(7, 511), sep = ""),
           checkboxGroupInput("type", label = "Content Rating", 
                              choices = sort(types)),
           checkboxGroupInput("color", label = "Color", 
