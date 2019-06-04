@@ -1,6 +1,7 @@
 library(ggplot2)
 library(shiny)
 library(plotly)
+library(DT)
 source("test.R")
 
 
@@ -33,12 +34,12 @@ shinyServer(function(input, output) {
   })
   
   # print table if movies exist in the category
-  output$table <- renderTable({
+  output$table <- DT::renderDataTable({
     if(nrow(x())==0){}
     else{
-      x() %>% 
-        select(title, year, director, imdb_score, keywords) %>%
-        rename_all(toupper)
+      DT::datatable(options = list(pageLength = 25),
+        x() %>% select(title, year, director, imdb_score, keywords) %>%
+                rename_all(toupper))
     }
   })
   
@@ -60,7 +61,7 @@ shinyServer(function(input, output) {
     if(nrow(x())==0){}
     else{
       p <- ggplot() +
-        geom_point(data = x(), aes(x=year, y=imdb_score, color = ~content_rating)) +
+        geom_point(data = x(), aes(x=year, y=imdb_score, colour = content_rating, key = title, stat = "identity")) +
         theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
               panel.background = element_blank(), axis.line = element_line(colour = "black")) +
         labs(title = "IMDB Score", x = "Year", y ="IMDB Scores")
