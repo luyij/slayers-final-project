@@ -41,8 +41,10 @@ shinyUI(fluidPage(
         p("MovieHunter was made for everyone to find a movie to watch. The 
           creators want to make finding and choosing a movie to watch be an easy
           task. Use the Hunt a Movie feature to find a movie with your preferences.
-          Use the Hunt for Fun feature to find a movie that fits with your mood."),
-        br(),
+          Use the Hunt for Fun feature to find a movie that fits with your mood. 
+          The data used is from Kaggle and sourced from The Movie Database (TMDb)"),
+        a(href="https://www.kaggle.com/tmdb/tmdb-movie-metadata", "Kaggle"),
+        br(), br(),
         p("Here is a Movie you might be interested in watching:"),
         HTML('<iframe width="560" height="315" src="https://www.youtube.com/embed/2L3Gvo40DzQ" 
              frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
