@@ -12,7 +12,6 @@ library(plotly)
 library(markdown)
 library(shinythemes)
 library(shinyWidgets)
-library(DT)
 source("test.R")
 
 df <- data.frame(
@@ -42,13 +41,34 @@ shinyUI(fluidPage(
         p("MovieHunter was made for everyone to find a movie to watch. The 
           creators want to make finding and choosing a movie to watch be an easy
           task. Use the Hunt a Movie feature to find a movie with your preferences.
-          Use the Hunt for Fun feature to find a movie that fits with your mood."),
-        br(),
+          Use the Hunt for Fun feature to find a movie that fits with your mood. 
+          The data used is from Kaggle and sourced from The Movie Database (TMDb)"),
+        a(href="https://www.kaggle.com/tmdb/tmdb-movie-metadata", "Kaggle"),
+        br(), br(),
         p("Here is a Movie you might be interested in watching:"),
         HTML('<iframe width="560" height="315" src="https://www.youtube.com/embed/2L3Gvo40DzQ" 
              frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
              allowfullscreen></iframe>'),
-        br(), br(), br()
+        br(), br(), br(),
+        h2("About the Creators"),
+        fluidRow(
+          column(4,
+                 h4("Isabella Garcia"),
+                 p("Year: Junior"),
+                 uiOutput("url1")
+          ),
+          column(4,
+                 h4("Johnny Zou"),
+                 p("Year: Sophomore"),
+                 uiOutput("url2")
+          ),
+          column(4,
+                 h4("Luyi Jia"),
+                 p("Year: Senior"),
+                 uiOutput("url3")
+          )
+        ),
+        br(), br()
     ),
 
     tabPanel("Hunt a Movie",
@@ -74,8 +94,27 @@ shinyUI(fluidPage(
     
     # Show a plot of the generated distribution
       mainPanel(
+
         tabsetPanel(type = "tabs",
-                    tabPanel("Movies", DT::dataTableOutput("table"), textOutput("text")),
+                    tabPanel("Movies", 
+                             br(),
+                             searchInput(
+                               inputId = "search", label = "Search by director",
+                               placeholder = "type a director name here",
+                               btnSearch = icon("search"),
+                               btnReset = icon("remove"),
+                               width = "450px"
+                             ),
+                             tags$head(tags$style("#text2{color: #FF3333;
+                                 font-size: 14px;
+                                 font-style: italic;
+                                 }"
+                             )
+                             ),
+                             textOutput("text2"),
+                             br(), 
+                             dataTableOutput("table") , textOutput("text")),
+
                     tabPanel("Visualize", textOutput("error"), plotlyOutput("plot"))
 
         )     
@@ -126,8 +165,13 @@ shinyUI(fluidPage(
            tags$li(align = "left", "Choose the language that you want to watch the movie"),
            h3("Movie by Mood"),
            p("The Movie by Mood page is a great choice if you want to be adventurous and 
-             pick a movie by chance. Click on the emoji that you are feeling and let us 
-             choose a movie for you!")
+             pick a movie by chance. Choose an emoji that you are feeling and let us 
+             choose a movie for you!"),
+           h3("Visualization Source"),
+           p("Visualizations are base on IMDb scores of the movies. IMDb is an online database 
+            of information related to films, television programs, home videos and video games, 
+            and internet streams, including cast, production crew and personnel biographies, 
+            plot summaries, trivia, and fan reviews and ratings.")
     )
   )
 ))

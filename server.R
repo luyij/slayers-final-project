@@ -1,7 +1,6 @@
 library(ggplot2)
 library(shiny)
 library(plotly)
-library(DT)
 source("test.R")
 
 
@@ -20,7 +19,8 @@ shinyServer(function(input, output) {
       filter(grepl(input$genre, genres)) %>%
       filter(year>= min(input$yearRange) & year<= max(input$yearRange)) %>%
       filter(duration>= min(input$duration) & duration<= max(input$duration)) %>%
-      filter(language %in% input$language)
+      filter(language %in% input$language) %>%
+      filter(grepl(input$search, director, ignore.case = TRUE))
     if(is.null(input$color) & is.null(input$type)){
       data
     } else if(!is.null(input$type) & is.null(input$color)){
@@ -34,10 +34,10 @@ shinyServer(function(input, output) {
   })
   
   # print table if movies exist in the category
-  output$table <- DT::renderDataTable({
+  output$table <- renderDataTable({
     if(nrow(x())==0){}
     else{
-      DT::datatable(options = list(pageLength = 25),
+      datatable(options = list(pageLength = 25),
         x() %>% select(title, year, director, imdb_score, keywords) %>%
                 rename_all(toupper))
     }
@@ -59,8 +59,7 @@ shinyServer(function(input, output) {
   })
   
   output$plot <- renderPlotly({
-    if(nrow(x())==0){
-    }
+    if(nrow(x())==0){}
     else{
       p <- ggplot(x() %>% arrange(desc(imdb_score)), aes(factor(year), factor(imdb_score))) +
         geom_point(aes(text=title, language=language, colour = content_rating)) +
@@ -102,8 +101,23 @@ shinyServer(function(input, output) {
     url
   })
   
-  output$text1 <- renderText({
-    "You may want to watch ..."
+  output$text1 <- renderText("You may want to watch ...")
+  output$text2 <- renderText("Note: please space between first name and last name!")
+  
+  output$url1 <- renderUI({
+    url1 <- a("She's the Man", href="https://www.imdb.com/title/tt0454945/")
+    tagList("Favorite Movie:", url1)
   })
+  
+  output$url2 <- renderUI({
+    url2 <- a("Godzilla", href="https://www.imdb.com/title/tt3741700/")
+    tagList("Favorite Movie:", url2)
+  })
+  
+  output$url3 <- renderUI({
+    url3 <- a("Green Book", href="https://www.imdb.com/title/tt6966692/")
+    tagList("Favorite Movie:", url3)
+  })
+  
   
 })
