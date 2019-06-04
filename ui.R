@@ -77,7 +77,7 @@ shinyUI(fluidPage(
         tabsetPanel(type = "tabs",
                     tabPanel("Movies", tableOutput("table"), textOutput("text")),
                     tabPanel("Visualize", textOutput("error"), plotlyOutput("plot"))
-        )
+        )     
       )
       )
     ),
