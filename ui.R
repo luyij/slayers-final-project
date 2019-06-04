@@ -31,7 +31,7 @@ shinyUI(fluidPage(
   theme = shinytheme("slate"),
   
   # Application title
-  titlePanel(title = div(img(src="MHLogo.png", width = "25%"))),
+  titlePanel(title = div(img(src="MHLogo.png", width = "20%"))),
   
   navbarPage("MovieHunter",
     tabPanel("Home", 
@@ -55,14 +55,15 @@ shinyUI(fluidPage(
       sidebarLayout(
         sidebarPanel(
           # Filter movies by genre
-          selectInput("genre", "Choose a Genre:",
+          pickerInput("genre", "Choose a Genre:",
                       choices = sort(genres)),
           # Filter movies by language
           uiOutput("language"),
-          uiOutput("tab"),
           # Filter movies by year
           sliderInput("yearRange", label = "Year Range", min = 1916, 
-                         max = 2017, value = c(1916, 2016), sep = ""),
+                         max = 2016, value = c(1916, 2016), sep = ""),
+          sliderInput("duration", label = "Duration(min)", min = 0, 
+                      max = 520, value = c(7, 511), sep = ""),
           checkboxGroupInput("type", label = "Content Rating", 
                              choices = sort(types)),
           checkboxGroupInput("color", label = "Color", 
@@ -93,12 +94,18 @@ shinyUI(fluidPage(
                            choices = df$val,
                            choicesOpt = list(content = df$img)
                            ),
-               actionButton("button", "Try Another")
+               actionButton("button", "Try Another"), 
+               helpText('Note: movie titles are linked to their IMDb pages.')
              ),
              mainPanel(
-               h4("You may want to watch ..."),
-               tags$style(type='text/css', '#random {background-color: rgba(180, 180, 180, 0.3); color: white; font-size: 18px}'),
-               h4(verbatimTextOutput("random"))
+               tags$head(tags$style("#text1{color: #FF9966;
+                                 font-size: 20px;
+                                 font-style: italic;
+                                 }"
+               )
+               ),
+               textOutput("text1"),
+               h2(uiOutput("random"))
                )
     ),
     tabPanel("Help", 

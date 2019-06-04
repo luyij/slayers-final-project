@@ -9,7 +9,8 @@ shinyServer(function(input, output) {
   output$language <- renderUI({
     data <- full_data %>%
       filter(grepl(input$genre, genres))
-    selectInput("language", "Choose a Language:", choices = sort(data[, "language"]))
+    languages <- unique(data[, "language"])
+    pickerInput("language", "Choose a Language:", choices = sort(languages), selected = "English")
   }) 
   
   
@@ -17,6 +18,7 @@ shinyServer(function(input, output) {
     data <- full_data %>%
       filter(grepl(input$genre, genres)) %>%
       filter(year>= min(input$yearRange) & year<= max(input$yearRange)) %>%
+      filter(duration>= min(input$duration) & duration<= max(input$duration)) %>%
       filter(language %in% input$language)
     if(is.null(input$color) & is.null(input$type)){
       data
@@ -59,6 +61,7 @@ shinyServer(function(input, output) {
     if(nrow(x())==0){
     }
     else{
+<<<<<<< HEAD
       p <- ggplot(x() %>% arrange(desc(imdb_score)), aes(factor(year), factor(imdb_score))) +
         geom_point(aes(text=title, language=language), colour = "#FFFFFF") +
         theme(plot.background = element_rect(fill = "#333333"),
@@ -74,9 +77,17 @@ shinyServer(function(input, output) {
         scale_y_discrete(name = "IMDB Score", c(0,1,1.5,2,2.5,3,3.5,4,4.5,5,5.5,6,6.5,7,7.5,8,8.5,9,9.5,10)) 
       ggplotly(p) %>% config(displayModeBar = F) 
     }
+=======
+      p <- ggplot() +
+        geom_point(data = x(), aes(x=year, y=imdb_score, color = ~content_rating)) +
+        theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+              panel.background = element_blank(), axis.line = element_line(colour = "black")) +
+        labs(title = "IMDB Score", x = "Year", y ="IMDB Scores")
+      ggplotly(p)} 
+>>>>>>> 9707181778fd6388fbaf21fbae8488a658eeb521
   })
   
-  output$random <- renderText({
+  output$random <- renderUI({
     input$button
     if(input$mood == "HAPPY"){
       movie <- full_data %>% 
@@ -94,7 +105,12 @@ shinyServer(function(input, output) {
       movie <- horror %>% 
         filter(id == sample(1:nrow(horror),1))
     }
-    paste(movie$title[1])
+    url <- a(movie$title[1], href=full_data[full_data$title == movie$title[1],'link'])
+    url
+  })
+  
+  output$text1 <- renderText({
+    "You may want to watch ..."
   })
   
 })
