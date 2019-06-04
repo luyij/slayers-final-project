@@ -39,7 +39,9 @@ shinyServer(function(input, output) {
     else{
       datatable(options = list(pageLength = 25),
         x() %>% select(title, year, director, imdb_score, keywords) %>%
-                rename_all(toupper))
+            rename_all(toupper)) %>% 
+        formatStyle('TITLE', target = 'row',
+        backgroundColor = '#272b30')
     }
   })
   
