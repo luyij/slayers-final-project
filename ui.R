@@ -54,17 +54,20 @@ shinyUI(fluidPage(
           column(4,
                  h4("Isabella Garcia"),
                  p("Year: Junior"),
-                 p("Favorite Movie:", a("She's the Man", href="https://www.imdb.com/title/tt0454945/"))
+                 p("Favorite Movie:", a("She's the Man", href="https://www.imdb.com/title/tt0454945/")),
+                 tags$img(src = "https://m.media-amazon.com/images/M/MV5BNTE0NDk1YzAtNTUwZC00NmViLWI3YjgtY2ZjYWI2YjYzZjkyXkEyXkFqcGdeQXVyMTkzODUwNzk@._V1_.jpg", width = "30%")
           ),
           column(4,
                  h4("Johnny Zou"),
                  p("Year: Sophomore"),
-                 p("Favorite Movie:", a("Godzilla", href="https://www.imdb.com/title/tt3741700/"))
+                 p("Favorite Movie:", a("Godzilla", href="https://www.imdb.com/title/tt3741700/")),
+                 tags$img(src= "https://m.media-amazon.com/images/M/MV5BOGFjYWNkMTMtMTg1ZC00Y2I4LTg0ZTYtN2ZlMzI4MGQwNzg4XkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_SY1000_CR0,0,674,1000_AL_.jpg", width = "30%")
           ),
           column(4,
                  h4("Luyi Jia"),
                  p("Year: Senior"),
-                 p("Favorite Movie:", a("Green Book", href="https://www.imdb.com/title/tt6966692/"))
+                 p("Favorite Movie:", a("Green Book", href="https://www.imdb.com/title/tt6966692/")),
+                 tags$img(src = "https://m.media-amazon.com/images/M/MV5BYzIzYmJlYTYtNGNiYy00N2EwLTk4ZjItMGYyZTJiOTVkM2RlXkEyXkFqcGdeQXVyODY1NDk1NjE@._V1_SY1000_CR0,0,666,1000_AL_.jpg", width = "30%")
           )
         ),
         br(), br()
@@ -152,16 +155,19 @@ shinyUI(fluidPage(
     tabPanel("Help", 
            align = "center",
            style = "font-size: 120%",
-           h2("How to use Movie Hunter"),
+           h2("How to use MovieHunter"),
            h3("Find a Movie"),
            p("Use the filter to find the movies that you are interested in watching."), 
            tags$li(align = "left", "You can select the genres of the movies that you want to watch such as 
              comedy or action"),
+           tags$li(align = "left", "Choose the language that you want to watch the movie"),
            tags$li(align = "left", 
           "Select the year the movie was produced. To do this, use the slider to pick the time 
              frame and if you want to find the movies of a specific year, you can drag 
              the sliders on top of each other"),
-           tags$li(align = "left", "Choose the language that you want to watch the movie"),
+          tags$li(align = "left","The duration filter allows you to pick the movies that you have time to watch"),
+          tags$li(align = "left","Content Rating lets you choose an appropriate movie for your scope of preferences"),
+          tags$li(align = "left","The color option allows you to filter to a more specific viewing experience"),
            h3("Movie by Mood"),
            p("The Movie by Mood page is a great choice if you want to be adventurous and 
              pick a movie by chance. Choose an emoji that you are feeling and let us 
