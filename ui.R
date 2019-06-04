@@ -97,7 +97,13 @@ shinyUI(fluidPage(
                actionButton("button", "Try Another")
              ),
              mainPanel(
-               h4("You may want to watch ..."),
+               tags$head(tags$style("#text1{color: #FF9966;
+                                 font-size: 20px;
+                                 font-style: italic;
+                                 }"
+               )
+               ),
+               textOutput("text1"),
                h2(uiOutput("random"))
                )
     ),

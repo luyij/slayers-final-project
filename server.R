@@ -89,4 +89,8 @@ shinyServer(function(input, output) {
     url
   })
   
+  output$text1 <- renderText({
+    "You may want to watch ..."
+  })
+  
 })
