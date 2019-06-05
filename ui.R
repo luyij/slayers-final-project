@@ -7,6 +7,7 @@
 #    http://shiny.rstudio.com/
 #
 
+library(R.utils)
 library(shiny)
 library(plotly)
 library(markdown)
@@ -98,7 +99,7 @@ shinyUI(fluidPage(
       mainPanel(
 
         tabsetPanel(type = "tabs",
-                    tabPanel("Movies", dataTableOutput("table") , textOutput("text")),
+                    tabPanel("Movies", DT::dataTableOutput("table") , textOutput("text")),
 
                     tabPanel("Visualize", textOutput("error"), plotlyOutput("plot"))
 
