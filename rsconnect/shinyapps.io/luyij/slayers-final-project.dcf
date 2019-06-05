@@ -5,9 +5,9 @@ account: luyij
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 962126
-bundleId: 2131669
+bundleId: 2131739
 url: https://luyij.shinyapps.io/slayers-final-project/
-when: 1559716726.79151
+when: 1559719409.5524
 asMultiple: FALSE
 asStatic: FALSE
-ignoredFiles: README.md|data/.DS_Store
+ignoredFiles: emoji.png|help.png|home.png|plot.png|README.md|table.png|data/.DS_Store

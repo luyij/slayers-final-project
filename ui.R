@@ -156,8 +156,8 @@ shinyUI(fluidPage(
           tags$li(align = "left","The duration filter allows you to pick the movies that you have time to watch"),
           tags$li(align = "left","Content Rating lets you choose an appropriate movie for your scope of preferences"),
           tags$li(align = "left","The color option allows you to filter to a more specific viewing experience"),
-           h3("Movie by Mood"),
-           p("The Movie by Mood page is a great choice if you want to be adventurous and 
+           h3("Hunt For Fun"),
+           p("The 'Hunt For Fun' page is a great choice if you want to be adventurous and 
              pick a movie by chance. Choose an emoji that you are feeling and let us 
              choose a movie for you!"),
           h3("Analysis"),
