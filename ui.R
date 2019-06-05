@@ -144,7 +144,7 @@ shinyUI(fluidPage(
            align = "center",
            style = "font-size: 120%",
            h2("How to use MovieHunter"),
-           h3("Find a Movie"),
+           h3("Hunt a Movie"),
            p("Use the filter to find the movies that you are interested in watching."), 
            tags$li(align = "left", "You can select the genres of the movies that you want to watch such as 
              comedy or action"),
